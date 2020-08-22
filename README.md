@@ -1,3 +1,3 @@
-# Minerva Migrator
+# Minerva Tools
 
-Tool for extracting blog entries and pages from the Ghost blogs SQLite database and converting them to markdown files.
+Various tools for working with the Minerva publisher, including a Ghost blog extractor.

@@ -1,0 +1,72 @@
+{
+  "name": "minerva-tools",
+  "version": "0.1.0",
+  "description": "Various tools for working with the Minerva publisher, including a Ghost blog extractor",
+  "main": "./dist/index.js",
+  "types": "./dist/index",
+  "bin": {
+    "minerva-convert": "./bin/minerva.js"
+  },
+  "nyc": {
+    "extends": "@istanbuljs/nyc-config-typescript",
+    "all": true,
+    "check-coverage": true,
+    "lines": 0,
+    "statements": 0,
+    "functions": 0,
+    "branches": 0,
+    "exclude": [
+      "**/example/**/*.js",
+      "**/example/**/*.ts",
+      "**/*.d.ts",
+      "**/*.test.js"
+    ],
+    "reporter": [
+      "text",
+      "cobertura",
+      "html"
+    ],
+    "report-dir": "./.nyc_output/coverage"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Michael Szul <michael@szul.us>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quietmath/minerva-tools.git",
+    "directory": "apps/minerva-convert"
+  },
+  "bugs": {
+    "url": "https://github.com/quietmath/minerva-tools/issues"
+  },
+  "homepage": "https://github.com/quietmath/minerva-tools#readme",
+  "scripts": {
+    "build": "tsc",
+    "test": "nyc mocha ./**/test/*.test.js --ignore ./**/node_modules/** --exit",
+    "eslint": "eslint ./src/*.ts ./src/**/*.ts",
+    "eslint-fix": "eslint ./src/*.ts ./src/**/*.ts --fix"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "sqlite3": "^5.0.0"
+  },
+  "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "@types/dotenv": "^8.2.0",
+    "@types/mocha": "^8.0.3",
+    "@types/node": "^14.6.0",
+    "@types/sqlite3": "^3.1.6",
+    "@typescript-eslint/eslint-plugin": "^3.9.1",
+    "@typescript-eslint/parser": "^3.9.1",
+    "eslint": "^7.7.0",
+    "exorcist": "^1.0.1",
+    "madge": "^3.9.2",
+    "mocha": "^8.1.1",
+    "nyc": "^15.1.0",
+    "rewire": "^5.0.0",
+    "ts-node": "^9.0.0",
+    "typeorm-model-generator": "^0.4.2",
+    "typescript": "^4.0.2"
+  }
+}
