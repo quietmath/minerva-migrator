@@ -43,13 +43,15 @@
   "homepage": "https://github.com/quietmath/minerva-tools#readme",
   "scripts": {
     "build": "tsc",
-    "test": "nyc mocha ./**/test/*.test.js --ignore ./**/node_modules/** --exit",
+    "test": "nyc mocha ./test/*.test.js --ignore ./**/node_modules/** --exit",
     "eslint": "eslint ./src/*.ts ./src/**/*.ts",
     "eslint-fix": "eslint ./src/*.ts ./src/**/*.ts --fix"
   },
   "dependencies": {
     "dotenv": "^8.2.0",
-    "sqlite3": "^5.0.0"
+    "reflect-metadata": "^0.1.13",
+    "sqlite3": "^5.0.0",
+    "typeorm": "^0.2.25"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.1",

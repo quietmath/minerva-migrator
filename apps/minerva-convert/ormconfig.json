@@ -9,6 +9,7 @@
     "database": "./data/ghost.db",
     "schema": "",
     "synchronize": false,
-    "entities": ["entities/*.js"]
+    "logging": false,
+    "entities": ["dist/entities/**/*.js"]
   }
 ]
