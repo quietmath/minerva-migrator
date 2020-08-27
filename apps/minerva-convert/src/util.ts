@@ -1,6 +1,7 @@
 import { Posts } from './entities/Posts';
+import { MarkdownPost } from './schema';
 
-export function shapePosts(posts: Posts[]): any[] {
+export function shapePosts(posts: Posts[]): MarkdownPost[] {
     const result = [];
     for(let i = 0; i < posts.length; i++) {
         result.push({
@@ -16,4 +17,11 @@ export function shapePosts(posts: Posts[]): any[] {
         });
     }
     return result;
+}
+
+export function isString(post: MarkdownPost): boolean {
+    if(typeof(post.Image) === 'string') {
+        return true;
+    }
+    return false;
 }
