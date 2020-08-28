@@ -1,5 +1,5 @@
 import { Posts } from './entities/Posts';
-import { MarkdownPost } from './schema';
+import { BASE_URL, MarkdownPost } from './schema';
 
 export function shapePosts(posts: Posts[]): MarkdownPost[] {
     const result = [];
@@ -9,7 +9,7 @@ export function shapePosts(posts: Posts[]): MarkdownPost[] {
             Author: posts[i].publishedBy,
             DatePublished: posts[i].publishedAt,
             Post: posts[i].markdown,
-            Image: posts[i].image,
+            Image: (isAbsoluteURL(posts[i].image)) ? posts[i].image : makeAbsoluteURL(posts[i].image),
             MetaTitle: posts[i].metaTitle,
             MetaDescription: posts[i].metaDescription,
             Tags: posts[i].postsTags,
@@ -19,8 +19,25 @@ export function shapePosts(posts: Posts[]): MarkdownPost[] {
     return result;
 }
 
-export function isString(post: MarkdownPost): boolean {
-    if(typeof(post.Image) === 'string') {
+export function makeAbsoluteURL(field: string): string {
+    if(field == null) {
+        return undefined;
+    }
+    return `${ BASE_URL }${ field }`;
+}
+
+export function isAbsoluteURL(field: string | null): boolean {
+    if(field == null) {
+        return false;
+    }
+    if(field.startsWith('https://') || field.startsWith('https://')) {
+        return true;
+    }
+    return false;
+}
+
+export function isString(field: string | number): boolean {
+    if(typeof(field) === 'string') {
         return true;
     }
     return false;

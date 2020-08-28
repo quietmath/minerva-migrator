@@ -1,3 +1,5 @@
+export const BASE_URL = 'https://codepunk.io';
+
 export interface MarkdownPost {
     Title: string;
     Author: string;
