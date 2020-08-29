@@ -7,21 +7,18 @@ export async function retrieveMarkdownPosts(): Promise<MarkdownPost[]> {
     return shapePosts(posts);
 }
 
-export async function checkMarkdownPostImage(): Promise<void> {
-    const posts = await retrieveMarkdownPosts();
-    posts.forEach((itm: MarkdownPost) => console.log(itm.Image));
-}
-
 export function markdownConversion(post: MarkdownPost): string {
-    let output = '---\n\r';
-    output += `title: ${ post.MetaTitle }\n\r`;
-    output += `description: ${ post.MetaDescription }\n\r`;
-    output += `datePublished: ${ post.DatePublished }\n\r`;
-    output += `tags: ${ post.Tags }\n\r`;
-    output += `author: ${ post.Author }\n\r`;
-    output += '---\n\r';
-    output += `${ post.Image }\n\r`;
-    output += `# ${ post.Title }\n\r`;
-    output += `${ post.Post }\n\r`;
+    let output = '---\n';
+    output += `title: ${ post.MetaTitle }\n`;
+    output += `description: ${ post.MetaDescription }\n`;
+    output += `datePublished: ${ post.DatePublished }\n`;
+    output += `tags: ${ (post.Tags) ? post.Tags : '' }\n`;
+    output += `author: ${ post.Author }\n`;
+    output += '---\n\n';
+    if(post.Image !== undefined) {
+        output += `![${ post.Title }](${ post.Image })\n\n`;
+    }
+    output += `# ${ post.Title }\n\n`;
+    output += `${ post.Post }\n\n`;
     return output;
 }

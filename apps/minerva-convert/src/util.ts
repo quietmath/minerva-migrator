@@ -1,4 +1,5 @@
 import { Posts } from './entities/Posts';
+import { PostsTags } from './entities/PostsTags';
 import { BASE_URL, MarkdownPost } from './schema';
 
 export function shapePosts(posts: Posts[]): MarkdownPost[] {
@@ -12,11 +13,18 @@ export function shapePosts(posts: Posts[]): MarkdownPost[] {
             Image: (isAbsoluteURL(posts[i].image)) ? posts[i].image : makeAbsoluteURL(posts[i].image),
             MetaTitle: posts[i].metaTitle,
             MetaDescription: posts[i].metaDescription,
-            Tags: posts[i].postsTags,
+            Tags: stringifyTags(posts[i].postsTags),
             IsPage: posts[i].page
         });
     }
     return result;
+}
+
+export function stringifyTags(field: PostsTags[]): string {
+    if(field == null) {
+        return '';
+    }
+    return field.map((e: PostsTags) => e.tag.name).join(', ');
 }
 
 export function makeAbsoluteURL(field: string): string {

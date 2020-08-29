@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const assert = require('assert');
 const { getPosts } = require('../dist/db');
-const { shapePosts, isString, isAbsoluteURL, makeAbsoluteURL } = require('../dist/util');
+const { shapePosts, isString, isAbsoluteURL, makeAbsoluteURL, stringifyTags } = require('../dist/util');
 
 const pNo = {
     image: 'https://cdn.october.codes/images/1.png'
@@ -49,5 +49,15 @@ describe('Unit tests for check properties on the post objects.', function() {
     it('should return null for the URL',() => {
         const result = makeAbsoluteURL(pNull.image);
         assert.equal(result, null);
+    });
+    it('should stringify tags', async () => {
+        const posts = await getPosts();
+        const result = stringifyTags(posts[0].postsTags);
+        assert.notEqual(result, null);
+        assert.equal(typeof(result), 'string');
+    });
+    it('should return an empty string', async () => {
+        const result = stringifyTags(undefined);
+        assert.equal(result, '');
     });
 });
