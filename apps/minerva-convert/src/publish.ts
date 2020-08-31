@@ -1,4 +1,6 @@
-import { MarkdownPost } from './schema';
+import * as fs from 'fs-extra';
+import { s } from '@quietmath/proto';
+import { MarkdownPost, OUTPUT_DIR } from './schema';
 import { getPosts } from './db';
 import { shapePosts } from './util';
 
@@ -21,4 +23,26 @@ export function markdownConversion(post: MarkdownPost): string {
     output += `# ${ post.Title }\n\n`;
     output += `${ post.Post }\n\n`;
     return output;
+}
+
+export async function createDir(): Promise<boolean> {
+    try {
+        await fs.ensureDir(`${ process.cwd() }/${ OUTPUT_DIR }`);
+        return true;
+    }
+    catch(e) {
+        return false;
+    }
+}
+
+export async function publishMarkdownFile(title: string, output: string): Promise<boolean> {
+    const fileName = `${ s(title).slugify().toString() }.md`;
+    const filePath = `${ process.cwd() }/${ OUTPUT_DIR }/${ fileName }`;
+    try {
+        await fs.writeFile(`${ filePath }`, output, {  encoding:'utf-8' });
+        return true;
+    }
+    catch(e) {
+        return false;
+    }
 }

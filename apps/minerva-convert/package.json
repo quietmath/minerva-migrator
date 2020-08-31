@@ -48,7 +48,9 @@
     "eslint-fix": "eslint ./src/*.ts ./src/**/*.ts --fix"
   },
   "dependencies": {
+    "@quietmath/proto": "^1.0.0",
     "dotenv": "^8.2.0",
+    "fs-extra": "^9.0.1",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.0.0",
     "typeorm": "^0.2.25"
@@ -56,6 +58,7 @@
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/dotenv": "^8.2.0",
+    "@types/fs-extra": "^9.0.1",
     "@types/mocha": "^8.0.3",
     "@types/node": "^14.6.0",
     "@types/sqlite3": "^3.1.6",
