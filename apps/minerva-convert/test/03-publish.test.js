@@ -6,7 +6,7 @@ const matter = require('gray-matter');
 const pub = rewire('../dist/publish');
 
 const fs = {
-    ensure: () => {
+    ensureDir: () => {
         return new Promise((resolve) => resolve(true));
     },
     writeFile: () => {
@@ -14,7 +14,7 @@ const fs = {
     }
 };
 
-pub.set('fs', fs);
+pub.__set__('fs', fs);
 
 describe('Unit tests for retrieve posts', function() {
     it('should retrieve posts', async () => {

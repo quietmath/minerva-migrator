@@ -1,6 +1,6 @@
 import { createDir, retrieveMarkdownPosts, markdownConversion, publishMarkdownFile } from './publish';
 
-async function publish() {
+export async function publish(): Promise<void> {
     const isDir = await createDir();
     if(isDir) {
         const posts = await retrieveMarkdownPosts();
