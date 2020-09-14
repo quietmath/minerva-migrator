@@ -4,11 +4,11 @@ const assert = require('assert');
 const rewire = require('rewire');
 const main = rewire('../dist/index');
 
-const createDir = async () => {
+const createDirectory = async () => {
     return new Promise((resolve) => resolve(true));
 };
 
-const publishMarkdownFile = () => {
+const publishFile = () => {
     return new Promise((resolve) => {
         resolve({
             Title: 'Markdown Document Title'
@@ -16,8 +16,8 @@ const publishMarkdownFile = () => {
     });
 };
 
-main.__set__('createDir', createDir);
-main.__set__('publishMarkdownFile', publishMarkdownFile);
+main.__set__('createDirectory', createDirectory);
+main.__set__('publishFile', publishFile);
 
 describe('Unit tests for the main entry point of the application,', function() {
     it('should run through the publish process', () => {

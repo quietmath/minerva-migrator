@@ -10,9 +10,8 @@ const { getPosts } = require('../dist/db');
 
 describe('Unit tests for interacting with the SQLite database through TypeORM.', function() {
     it('should open a SQLite connection', async () => {
-        await createConnection().then(async (result) => {
-            assert.notEqual(result, null);
-        });
+        const conn = await createConnection();
+        assert.notEqual(conn, null);
     });
     it('should read from the users table', async () => {
         const [users, count] = await getConnection().manager.findAndCount(Users);
