@@ -1,3 +1,5 @@
 #!/usr/bin/env node
 
-require('../dist/index');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { publish } = require('../dist/index');
+publish();
