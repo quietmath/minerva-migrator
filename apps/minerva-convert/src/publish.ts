@@ -1,8 +1,8 @@
 import * as fs from 'fs-extra';
 import { s } from '@quietmath/proto';
-import { MarkdownPost, OUTPUT_DIR } from './schema';
+import { DOWNLOAD_DIR, MarkdownPost, OUTPUT_DIR } from './schema';
 import { getPosts } from './db';
-import { shapePosts } from './util';
+import { shapePosts, replaceColon } from './util';
 
 export async function retrieveMarkdownPosts(): Promise<MarkdownPost[]> {
     const posts = await getPosts();
@@ -11,8 +11,8 @@ export async function retrieveMarkdownPosts(): Promise<MarkdownPost[]> {
 
 export function markdownConversion(post: MarkdownPost): string {
     let output = '---\n';
-    output += `title: ${ post.MetaTitle }\n`;
-    output += `description: ${ post.MetaDescription }\n`;
+    output += `title: ${ replaceColon(post.MetaTitle) }\n`;
+    output += `description: ${ replaceColon(post.MetaDescription) }\n`;
     output += `datePublished: ${ post.DatePublished }\n`;
     output += `tags: ${ (post.Tags) ? post.Tags : '' }\n`;
     output += `author: ${ post.Author }\n`;
@@ -28,6 +28,7 @@ export function markdownConversion(post: MarkdownPost): string {
 export async function createDir(): Promise<boolean> {
     try {
         await fs.ensureDir(`${ process.cwd() }/${ OUTPUT_DIR }`);
+        await fs.ensureDir(`${ process.cwd() }/${ DOWNLOAD_DIR }`);
         return true;
     }
     catch(e) {
@@ -36,7 +37,7 @@ export async function createDir(): Promise<boolean> {
 }
 
 export async function publishMarkdownFile(title: string, output: string): Promise<boolean> {
-    const fileName = `${ s(title).slugify().toString() }.md`;
+    const fileName = `${ s(title).lower().slugify().toString() }.md`;
     const filePath = `${ process.cwd() }/${ OUTPUT_DIR }/${ fileName }`;
     try {
         await fs.writeFile(`${ filePath }`, output, {  encoding:'utf-8' });

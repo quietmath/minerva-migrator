@@ -6,7 +6,7 @@ const { Users } = require('../dist/entities/Users');
 const { Posts } = require('../dist/entities/Posts');
 const { Tags } = require('../dist/entities/Tags');
 const { PostsTags } = require('../dist/entities/PostsTags');
-const { getPosts } = require('../dist/db');
+const { getPosts, getAuthors } = require('../dist/db');
 
 describe('Unit tests for interacting with the SQLite database through TypeORM.', function() {
     it('should open a SQLite connection', async () => {
@@ -68,5 +68,9 @@ describe('Unit tests for interacting with the SQLite database through the databa
     it('should get posts', async () => {
         const posts = await getPosts();
         assert.notEqual(posts, null);
+    });
+    it('should get users', async () => {
+        const users = await getAuthors();
+        assert.notEqual(users, null);
     });
 });

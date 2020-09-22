@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const assert = require('assert');
 const { getPosts } = require('../dist/db');
-const { shapePosts, isString, isAbsoluteURL, makeAbsoluteURL, stringifyTags } = require('../dist/util');
+const { shapePosts, isString, isAbsoluteURL, makeAbsoluteURL, stringifyTags, replaceColon } = require('../dist/util');
 
 const pNo = {
     image: 'https://cdn.october.codes/images/1.png'
@@ -56,8 +56,12 @@ describe('Unit tests for check properties on the post objects.', function() {
         assert.notEqual(result, null);
         assert.equal(typeof(result), 'string');
     });
-    it('should return an empty string', async () => {
+    it('should return an empty string', () => {
         const result = stringifyTags(undefined);
         assert.equal(result, '');
+    });
+    it('should return a string without a colon', () => {
+        const result = replaceColon('This title has a colon: See?');
+        assert.equal(result.indexOf(':') === -1, true);
     });
 });

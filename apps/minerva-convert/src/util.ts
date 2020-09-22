@@ -1,4 +1,5 @@
 import { Posts } from './entities/Posts';
+import { Users } from './entities/Users';
 import { PostsTags } from './entities/PostsTags';
 import { BASE_URL, MarkdownPost } from './schema';
 
@@ -18,6 +19,14 @@ export function shapePosts(posts: Posts[]): MarkdownPost[] {
         });
     }
     return result;
+}
+
+export function getAuthor(id: number, users: Users[]): string | number {
+    const user = users.find((e: Users) => e.id === id);
+    if(user != null) {
+        return user.name;
+    }
+    return id;
 }
 
 export function stringifyTags(field: PostsTags[]): string {
@@ -49,4 +58,8 @@ export function isString(field: string | number): boolean {
         return true;
     }
     return false;
+}
+
+export function replaceColon(field: string): string {
+    return field.replace(/:/ig, ' ');
 }

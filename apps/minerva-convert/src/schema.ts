@@ -1,6 +1,7 @@
 export const BASE_URL = 'https://codepunk.io';
 
 export const OUTPUT_DIR = 'output';
+export const DOWNLOAD_DIR = 'output/images';
 
 export interface MarkdownPost {
     Title: string;
