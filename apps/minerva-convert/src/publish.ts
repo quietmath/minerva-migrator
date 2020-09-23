@@ -2,20 +2,21 @@ import * as fs from 'fs-extra';
 import { s } from '@quietmath/proto';
 import { DOWNLOAD_DIR, MarkdownPost, OUTPUT_DIR } from './schema';
 import { getPosts } from './db';
-import { shapePosts, replaceColon } from './util';
+import { shapePosts, replaceColon, getAuthor } from './util';
+import { Users } from './entities/Users';
 
 export async function retrieveMarkdownPosts(): Promise<MarkdownPost[]> {
     const posts = await getPosts();
     return shapePosts(posts);
 }
 
-export function markdownConversion(post: MarkdownPost): string {
+export function markdownConversion(post: MarkdownPost, authors: Users[]): string {
     let output = '---\n';
     output += `title: ${ replaceColon(post.MetaTitle) }\n`;
     output += `description: ${ replaceColon(post.MetaDescription) }\n`;
     output += `datePublished: ${ post.DatePublished }\n`;
     output += `tags: ${ (post.Tags) ? post.Tags : '' }\n`;
-    output += `author: ${ post.Author }\n`;
+    output += `author: ${ getAuthor(post.Author, authors) }\n`;
     output += '---\n\n';
     if(post.Image !== undefined) {
         output += `![${ post.Title }](${ post.Image })\n\n`;

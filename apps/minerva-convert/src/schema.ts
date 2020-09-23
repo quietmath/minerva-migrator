@@ -5,7 +5,7 @@ export const DOWNLOAD_DIR = 'output/images';
 
 export interface MarkdownPost {
     Title: string;
-    Author: string;
+    Author: number;
     DatePublished: Date;
     Post: string;
     Image: string;

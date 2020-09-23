@@ -25,14 +25,20 @@ describe('Unit tests for retrieve posts', function() {
 });
 
 describe('Unit tests for converting Ghost blog posts to standard markdown posts with gray matter.', function() {
+    const authors = [
+        {
+            id: 1,
+            name: 'Michael Szul'
+        }
+    ];
     it('should output markdown text with gray matter', async () => {
         const posts = await pub.retrieveMarkdownPosts();
-        const md = pub.markdownConversion(posts[0]);
+        const md = pub.markdownConversion(posts[0], authors);
         assert.notEqual(md, null);
     });
     it('should output markdown that can be parsed by gray matter', async () => {
         const posts = await pub.retrieveMarkdownPosts();
-        const md = pub.markdownConversion(posts[0]);
+        const md = pub.markdownConversion(posts[0], authors);
         const result = matter(md);
         assert.notEqual(result.data, null);
         assert.notEqual(result.data.title, null);

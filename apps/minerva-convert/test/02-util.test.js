@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const assert = require('assert');
-const { getPosts } = require('../dist/db');
-const { shapePosts, isString, isAbsoluteURL, makeAbsoluteURL, stringifyTags, replaceColon } = require('../dist/util');
+const { getPosts, getAuthors } = require('../dist/db');
+const { shapePosts, isString, isAbsoluteURL, makeAbsoluteURL, stringifyTags, replaceColon, getAuthor } = require('../dist/util');
 
 const pNo = {
     image: 'https://cdn.october.codes/images/1.png'
@@ -16,11 +16,20 @@ const pNull = {
     image: null
 };
 
+const postWithAuthor = {
+    authorId: 1
+};
+
 describe('Unit tests for shaping posts from Ghost into Minerva format.', function() {
     it('should shape posts', async () => {
         const posts = await getPosts();
         const result = shapePosts(posts);
         assert.notEqual(result, null);
+    });
+    it('should get author', async () => {
+        const authors = await getAuthors();
+        const author = getAuthor(postWithAuthor.authorId, authors);
+        assert.notEqual(author, null);
     });
 });
 

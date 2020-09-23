@@ -8,7 +8,7 @@ export function shapePosts(posts: Posts[]): MarkdownPost[] {
     for(let i = 0; i < posts.length; i++) {
         result.push({
             Title: posts[i].title,
-            Author: posts[i].publishedBy,
+            Author: posts[i].authorId,
             DatePublished: posts[i].publishedAt,
             Post: posts[i].markdown,
             Image: (isAbsoluteURL(posts[i].image)) ? posts[i].image : makeAbsoluteURL(posts[i].image),
