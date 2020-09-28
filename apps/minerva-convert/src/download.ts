@@ -20,7 +20,7 @@ export async function downloadImage(url: string): Promise<string> {
             return filePath;
         }
         catch(e) {
-            console.error(e);
+            console.error(`Error downloading image file ${ e }`);
             return null;
         }
     }

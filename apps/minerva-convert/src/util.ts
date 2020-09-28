@@ -61,5 +61,8 @@ export function isString(field: string | number): boolean {
 }
 
 export function replaceColon(field: string): string {
-    return field.replace(/:/ig, ' ');
+    if(field != null) {
+        return field.replace(/:/ig, ' ');
+    }
+    return field;
 }
