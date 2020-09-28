@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import * as request from 'request-promise';
 import { DOWNLOAD_DIR } from './schema';
 
-export async function downloadImage(url: string): Promise<boolean> {
+export async function downloadImage(url: string): Promise<string> {
     const opts = {
         url: url,
         encoding: null
@@ -15,13 +15,14 @@ export async function downloadImage(url: string): Promise<boolean> {
     if(fileName !== undefined) {
         try {
             const result = await request.get(opts);
-            fs.writeFileSync(`${ DOWNLOAD_DIR }/${ fileName }`, result);
-            return true;
+            const filePath = `${ DOWNLOAD_DIR }/${ fileName }`;
+            fs.writeFileSync(filePath, result);
+            return filePath;
         }
         catch(e) {
             console.error(e);
-            return false;
+            return null;
         }
     }
-    return false;
+    return null;
 }

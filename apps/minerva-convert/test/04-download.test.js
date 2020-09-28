@@ -23,6 +23,6 @@ download.__set__('fs', fs);
 describe('Unit tests for downloading files.', function() {
     it('should mock download a file', async () => {
         const result = await download.downloadImage('https://codepunk.io/images/test.jpg');
-        assert.equal(result, true);
+        assert.notEqual(result, null);
     });
 });

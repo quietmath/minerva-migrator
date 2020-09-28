@@ -10,7 +10,7 @@ export async function retrieveMarkdownPosts(): Promise<MarkdownPost[]> {
     return shapePosts(posts);
 }
 
-export function markdownConversion(post: MarkdownPost, authors: Users[]): string {
+export function markdownConversion(post: MarkdownPost, authors: Users[], imgPath: string): string {
     let output = '---\n';
     output += `title: ${ replaceColon(post.MetaTitle) }\n`;
     output += `description: ${ replaceColon(post.MetaDescription) }\n`;
@@ -19,7 +19,13 @@ export function markdownConversion(post: MarkdownPost, authors: Users[]): string
     output += `author: ${ getAuthor(post.Author, authors) }\n`;
     output += '---\n\n';
     if(post.Image !== undefined) {
-        output += `![${ post.Title }](${ post.Image })\n\n`;
+        try {
+            const image = (imgPath != null) ? imgPath.split(OUTPUT_DIR)[1] : post.Image;
+            output += `![${ post.Title }](${ image })\n\n`;
+        }
+        catch(e) {
+            console.error(`Failed to get relative path for image: ${ e }`);
+        }
     }
     output += `# ${ post.Title }\n\n`;
     output += `${ post.Post }\n\n`;

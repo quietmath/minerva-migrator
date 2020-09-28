@@ -25,12 +25,12 @@ export async function publish(): Promise<void> {
         for(let i = 0; i < posts.length; i++) {
             let imgPath: string;
             try {
-                await downloadImage(posts[i].Image);
+                imgPath = await downloadImage(posts[i].Image);
             }
             catch(e) {
                 console.error(`Failed to download image: ${ e }`);
             }
-            const md = markdownConversion(posts[i], authors);
+            const md = markdownConversion(posts[i], authors, imgPath);
             const result = await publishFile(posts[i].Title, md);
             if(result) {
                 console.log(`Published ${ posts[i].Title }`);
